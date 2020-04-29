@@ -1,6 +1,7 @@
 defmodule SendGridEx.Recipients do
   alias SendGridEx.Client
   alias SendGridEx.Model.Recipient
+  alias SendGridEx.Model.RecipientId
 
   @doc """
   Adds a single recipient.
@@ -47,22 +48,13 @@ defmodule SendGridEx.Recipients do
   @doc """
   Deletes a recipient.
   """
-  def delete(recipient_id) when is_binary(recipient_id) do
+  def delete(%RecipientId{} = r) do
     with {:ok, _env} <-
            Client.delete(
-             "contactdb/recipients/#{recipient_id}",
+             "contactdb/recipients/#{r.recipient_id}",
              opts: [expected_status_code: 204]
            ) do
       :ok
     end
-  end
-
-  @doc """
-  Converts an email to the SendGrid recipient id.
-  """
-  def email_to_recipient_id(email) do
-    email
-    |> String.downcase()
-    |> Base.encode64()
   end
 end

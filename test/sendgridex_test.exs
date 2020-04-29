@@ -1,7 +1,7 @@
 defmodule SendGridExTest do
   use ExUnit.Case
   import Tesla.Mock
-  alias SendGridEx.Model.Recipient
+  alias SendGridEx.Model.{Recipient, RecipientId}
   alias SendGridEx.Recipients
   # doctest SendGridEx
 
@@ -18,7 +18,7 @@ defmodule SendGridExTest do
             "errors" => [],
             "new_count" => 0,
             "persisted_recipients" => [
-              Recipients.email_to_recipient_id(Enum.at(body, 0)["email"])
+              RecipientId.email_to_recipient_id(Enum.at(body, 0)["email"])
             ],
             "unmodified_indices" => [0],
             "updated_count" => 1
@@ -36,7 +36,7 @@ defmodule SendGridExTest do
             "errors" => [],
             "new_count" => 1,
             "persisted_recipients" => [
-              Recipients.email_to_recipient_id(Enum.at(body, 0)["email"])
+              RecipientId.email_to_recipient_id(Enum.at(body, 0)["email"])
             ],
             "unmodified_indices" => [],
             "updated_count" => 0
@@ -109,7 +109,7 @@ defmodule SendGridExTest do
 
   test "delete recipient with custom fields" do
     email = "sendgridex@sendgridex.com"
-    recipient_id = Recipients.email_to_recipient_id(email)
+    recipient_id = RecipientId.from_email(email)
 
     assert Recipients.delete(recipient_id) == :ok
   end
