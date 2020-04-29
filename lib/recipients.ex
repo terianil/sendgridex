@@ -23,6 +23,26 @@ defmodule SendGridEx.Recipients do
   end
 
   @doc """
+  Updates a single recipient. If the recipient does not exist, it will be created.
+  """
+  def update(%Recipient{} = recipient) do
+    update([recipient])
+  end
+
+  @doc """
+  Updates multiple recipients. If the recipient does not exist, it will be created.
+  """
+  def update(recipients) when is_list(recipients) do
+    with {:ok, env} <- Client.patch(
+      "contactdb/recipients",
+      recipients,
+      opts: [expected_status_code: 201]
+    ) do
+      {:ok, env.body}
+    end
+  end
+
+  @doc """
   Deletes a recipient.
   """
   def delete(recipient_id) when is_binary(recipient_id) do
