@@ -5,8 +5,8 @@ defmodule SendGridExTest do
 
   test "test requests" do
     email = "sendgridex@sendgridex.com"
-    recipient_id = SendGridEx.Recipients.email_to_recipient_id(email)
-    recipient = %Recipient{
+    _recipient_id = SendGridEx.Recipients.email_to_recipient_id(email)
+    _recipient = %Recipient{
       email: email,
       custom_fields: %{
         number: 44,
@@ -15,7 +15,7 @@ defmodule SendGridExTest do
       }
     }
 
-    assert SendGridEx.Recipients.add(recipient) |> IO.inspect()
+    # assert SendGridEx.Recipients.add(recipient) |> IO.inspect()
     # assert SendGridEx.Recipients.delete(recipient_id) |> IO.inspect()
   end
 end
