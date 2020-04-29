@@ -13,11 +13,12 @@ defmodule SendGridEx.Recipients do
   Adds multiple recipients.
   """
   def add(recipients) when is_list(recipients) do
-    with {:ok, env} <- Client.post(
-      "contactdb/recipients",
-      recipients,
-      opts: [expected_status_code: 201]
-    ) do
+    with {:ok, env} <-
+           Client.post(
+             "contactdb/recipients",
+             recipients,
+             opts: [expected_status_code: 201]
+           ) do
       {:ok, env.body}
     end
   end
@@ -33,11 +34,12 @@ defmodule SendGridEx.Recipients do
   Updates multiple recipients. If the recipient does not exist, it will be created.
   """
   def update(recipients) when is_list(recipients) do
-    with {:ok, env} <- Client.patch(
-      "contactdb/recipients",
-      recipients,
-      opts: [expected_status_code: 201]
-    ) do
+    with {:ok, env} <-
+           Client.patch(
+             "contactdb/recipients",
+             recipients,
+             opts: [expected_status_code: 201]
+           ) do
       {:ok, env.body}
     end
   end
@@ -46,10 +48,11 @@ defmodule SendGridEx.Recipients do
   Deletes a recipient.
   """
   def delete(recipient_id) when is_binary(recipient_id) do
-    with {:ok, _env} <- Client.delete(
-      "contactdb/recipients/#{recipient_id}",
-      opts: [expected_status_code: 204]
-    ) do
+    with {:ok, _env} <-
+           Client.delete(
+             "contactdb/recipients/#{recipient_id}",
+             opts: [expected_status_code: 204]
+           ) do
       :ok
     end
   end

@@ -29,7 +29,8 @@ defmodule SendGridEx.Model.Recipient do
 
   defimpl Jason.Encoder do
     def encode(%Recipient{email: email, custom_fields: %{} = fields}, opts) do
-      data = %{email: email}
+      data =
+        %{email: email}
         |> Map.merge(fields)
 
       Jason.Encode.map(data, opts)

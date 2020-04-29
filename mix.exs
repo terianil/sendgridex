@@ -23,7 +23,7 @@ defmodule SendGridEx.MixProject do
     [
       {:tesla, "~> 1.3"},
       {:jason, "~> 1.2"},
-      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false}
     ]
   end
 end
